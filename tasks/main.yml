@@ -1,0 +1,28 @@
+- name: installing zsh
+  package:
+    name: zsh
+    state: latest
+
+- name: downloading zshrc to /etc/zsh/zshrc
+  get_url:
+    url: https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+    dest: /etc/zsh/zshrc
+    owner: root
+    group: root
+    mode: 0644
+
+- name: getting root's default-shell
+  shell: grep "root" /etc/passwd | awk -F  ":" '{print $NF}'
+  register: roots_shell
+  changed_when: false
+
+- name: setting root's default-shell to zsh
+  shell: chsh -s $(which zsh) root
+  when: 
+    - not ansible_check_mode
+    - roots_shell.stdout.find('zsh') == -1
+
+- name: creating root zshrc
+  template:
+      src: roles/grml-zsh/files/zshrc-local.j2
+      dest: /root/.zshrc
