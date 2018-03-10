@@ -24,5 +24,5 @@
 
 - name: creating root zshrc
   template:
-      src: roles/grml-zsh/files/zshrc-local.j2
+      src: files/zshrc-local.j2
       dest: /root/.zshrc
