@@ -1,0 +1,12 @@
+galaxy_info:
+  author: Stefan Geisbacher
+  description: zsh grml
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+  - name: ubuntu
+    versions:
+    - all
+  galaxy_tags:
+    - zsh
+    - grml
